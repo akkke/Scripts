@@ -1,0 +1,79 @@
+function playersHandler_updatePlayerSidebar(player: offline player):
+
+	set {_sidebarId} to "SIDEBAR_%{_player}'s UUID%"
+
+	add "Welcome &6%{_player}%&f!" to {_sidebarLinesDisplay::*}
+	add "" to {_sidebarLinesDisplay::*}
+	add "Kills: &6%{Kills::%{_player}%}%" to {_sidebarLinesDisplay::*}
+	add "Deaths: &6%{Deaths::%{_player}%}%" to {_sidebarLinesDisplay::*}
+	add "Killstreak: &6%{Killstreak::%{_player}%}%" to {_sidebarLinesDisplay::*}
+
+	set {_sidebarLinesDisplay::*} to playersHandler_updatePlayerSidebar_replaceDuplicateText({_sidebarLinesDisplay::*})
+	set {_sidebarLines} to (amount of {_sidebarLinesDisplay::*})
+	if {-game_playersHandler::SIDEBAR_%{_sidebarId}%_REGISTERED_LINES} is not {_sidebarLines}:
+		playersHandler_updatePlayerSidebar_linesSetup({_player}, {_sidebarId}, {_sidebarLinesDisplay::*})
+	set {-game_playersHandler::SIDEBAR_%{_sidebarId}%_REGISTERED_LINES} to {_sidebarLines}
+	playersHandler_updatePlayerSidebar_textSetup({_sidebarId}, {_sidebarLinesDisplay::*})
+
+function playersHandler_updatePlayerSidebar_linesSetup(player: offline player, sidebarId: text, sidebarLinesDisplay: texts):
+	set {_sidebarLines} to (amount of {_sidebarLinesDisplay::*})
+	set {_sidebarLines} to (check [{_sidebarLines} <= 15] ? {_sidebarLines} : 15)
+	delete stylish scoreboard {_sidebarId}
+	create stylish scoreboard named {_sidebarId}
+	set title of stylish scoreboard {_sidebarID} to "&6&lbajs&4&lP&c&lv&4&lP"
+	loop {_sidebarLines} times:
+		set {_loopSidebarLine} to ({_sidebarLines} + 1 - loop-number)
+		create a new id based score "%{_sidebarId}%_LINE_%{_loopSidebarLine}%" with text "LINE_%{_loopSidebarLine}%" slot {_loopSidebarLine} for stylish scoreboard {_sidebarId}
+	set {_player}'s stylish scoreboard to {_sidebarId}
+
+function playersHandler_updatePlayerSidebar_textSetup(sidebarId: text, sidebarLinesDisplay: texts):
+	set {_sidebarLines} to (amount of {_sidebarLinesDisplay::*})
+	set {_sidebarLines} to (check [{_sidebarLines} <= 15] ? {_sidebarLines} : 15)
+	loop {_sidebarLines} times:
+		set {_loopSidebarLine} to ({_sidebarLines} + 1 - loop-number)
+		set text of id "%{_sidebarId}%_LINE_%{_loopSidebarLine}%" to {_sidebarLinesDisplay::%loop-number%}
+		if floor(loop-number / 3) is (loop-number / 3):
+			wait 1 tick
+
+function playersHandler_updatePlayerSidebar_replaceDuplicateText(sidebarLinesDisplay: texts) :: texts:
+	loop {_sidebarLinesDisplay::*}:
+		while (true):
+			set {_loopLineText} to {_sidebarLinesDisplay::%loop-index%}
+			if {_textUsed::%{_loopLineText}%} is set:
+				set {_sidebarLinesDisplay::%loop-index%} to "%{_loopLineText}%&f"
+			else:
+				set {_textUsed::%{_loopLineText}%} to true
+				exit 1 loop
+	return {_sidebarLinesDisplay::*}
+
+function playersHandler_removePlayerSidebar(player: offline player):
+	set {_sidebarId} to "SIDEBAR_%{_player}'s UUID%"
+	delete {-game_playersHandler::SIDEBAR_%{_sidebarId}%_REGISTERED_LINES}
+
+function playersHandler_removePlayerTablist(p: player):
+    wipe {_p}'s tab
+
+on death:
+    if victim is a player:
+        playersHandler_removePlayerSidebar(victim)
+        playersHandler_removePlayerSidebar(attacker)
+        add 1 to {Kills::%attacker%}
+        add 1 to {Deaths::%victim%}
+        add 1 to {Killstreak::%attacker%}
+        set {Killstreak::%victim%} to 0
+        set death message to "&c%victim% &7died to &c%attacker%&7! RIP!"
+        playersHandler_updatePlayerSidebar(victim)
+        playersHandler_updatePlayerSidebar(attacker)
+
+on join:
+	if {Kills::%player%} is not set:
+		set {Kills::%player%} to 0
+
+	if {Deaths::%player%} is not set:
+		set {Deaths::%player%} to 0
+
+	set {Killstreak::%player%} to 0
+	
+	playersHandler_removePlayerSidebar(player)
+	wait 15 ticks
+	playersHandler_updatePlayerSidebar(player)

@@ -1,0 +1,194 @@
+on load:
+  clear {kit::*}
+  clear {kits::*}
+
+  set {_sword} to iron sword of unbreaking 3
+  set {_gapples} to 18 of golden apple
+
+  set {_defaultItems::*} to {_sword} and {_gapples}
+
+  set {_helmet} to iron helmet of protection 3
+  set {_chestplate} to iron chestplate of protection 4
+  set {_leggings} to iron leggings of protection 3
+  set {_boots} to iron boots of protection 3
+
+  set {_defaultArmor::*} to {_helmet}, {_chestplate}, {_leggings} and {_boots}
+
+  addKit("Default", iron sword, {_defaultItems::*}, {_defaultArmor::*})
+
+  set {_sword} to stone sword
+  set {_bow} to bow
+  set {_gapples} to 5 of golden apple
+  set {_arrows} to 20 of arrow
+
+  set {_archerItems::*} to {_sword}, {_bow}, {_gapples} and {_arrows}
+
+  set {_helmet} to chainmail helmet
+  set {_chestplate} to diamond chestplate of protection 2
+  set {_leggings} to chainmail leggings
+  set {_boots} to chainmail boots of protection 1
+
+  set {_archerArmor::*} to {_helmet}, {_chestplate}, {_leggings} and {_boots}
+
+  addKit("Archer", bow, {_archerItems::*}, {_archerArmor::*})
+
+  set {_sword} to diamond sword of sharpness 5000, unbreaking 10000 and fire aspect 5000
+  set {_bow} to bow of punch 50 and unbreaking 50
+  set {_gapples} to 64 of golden apple
+  set {_arrows} to 128 of arrow
+
+  set {_deathItems::*} to {_sword}, {_bow}, {_gapples} and {_arrows}
+
+  set {_helmet} to diamond helmet of protection 5000
+  set {_chestplate} to diamond chestplate of protection 5000
+  set {_leggings} to diamond leggings of protection 5000
+  set {_boots} to diamond boots of protection 5000
+
+  set {_deathArmor::*} to {_helmet}, {_chestplate}, {_leggings} and {_boots}
+
+  #addKit("DEATH", coal, {_deathItems::*}, {_deathArmor::*})
+
+function kitGUI(p: player):
+  wait 1 tick
+  set {_g} to chest inventory with 5 rows named "Kit Selection"
+
+  loop 9 times:
+    set slot (rows of {_g}  * 9) - loop-number of {_g} to black stained glass pane named "&c "
+
+  set {_x} to 0
+
+  set {_u} to {_p}'s UUID
+
+  loop {kits::*}:
+    if {currentKit::%{_u}%} is loop-value:
+      set slot {_x} of {_g} to shiny {kit::%loop-value%::icon} named "&6&l%{kit::%loop-value%}%" with lore "&8» &rCurrent Kit"
+    else:
+      set slot {_x} of {_g} to {kit::%loop-value%::icon} named "&6&l%{kit::%loop-value%}%" with lore "&8» &rClick to select||&8» &rRight click to preview"
+    add 1 to {_x}
+
+  open {_g} to {_p}
+  set metadata value "kitGUI" of {_p} to true
+  
+on inventory click:
+  metadata value "kitGUI" of player is true
+  cancel event
+
+  event-inventory is not player's inventory
+
+  event-slot is not air
+  event-slot is not black stained glass pane named "&c "
+
+  if click type is left mouse button:
+    set {_kit} to subtext of (name of event-slot) from characters 5 to (the length of (name of event-slot))
+
+    set {currentKit::%player's UUID%} to {_kit}
+    send "&aYou selected &b%{_kit}%"
+    kitGUI(player)
+    clear player's inventory
+    giveKit(player)
+    stop
+ 
+  else if click type is right mouse button:
+    set {_kit} to subtext of (name of event-slot) from characters 5 to (the length of (name of event-slot))
+    set {_g} to chest inventory with 5 rows named "Previewing Kit: %{_kit}%"
+
+    loop 9 times:
+      set slot (rows of {_g}  * 9) - loop-number of {_g} to black stained glass pane named "&c "
+
+    set slot (rows of {_g}  * 9) - 5 of {_g} to redstone block named "&c&lBack"
+
+    set {_x} to 0
+    loop {kit::%{_kit}%::items::*}:
+      set slot {_x} of {_g} to loop-value
+      add 1 to {_x}
+
+    loop {kit::%{_kit}%::armor::*}:
+      if loop-value is any helmet:
+        set slot (rows of {_g} * 9 - 18) of {_g} to loop-value
+      if loop-value is any chestplate:
+        set slot (rows of {_g} * 9 - 17) of {_g} to loop-value
+      if loop-value is any leggings:
+        set slot (rows of {_g} * 9 - 16) of {_g} to loop-value
+      if loop-value is any boots:
+        set slot (rows of {_g} * 9 - 15) of {_g} to loop-value
+
+    delete metadata value "kitGUI" of player
+
+    open {_g} to player
+
+    set metadata value "kitPreview" of player to true
+
+on inventory click:
+  metadata value "kitPreview" of player is true
+  cancel event
+  if event-slot is redstone block named "&c&lBack":
+    delete metadata value "kitPreview" of player
+    kitGUI(player)
+
+on inventory close:
+  delete metadata value "kitGUI" of player
+  delete metadata value "kitPreview" of player
+
+function giveKit(p: player):
+  set {_u} to {_p}'s UUID
+  if {currentKit::%{_u}%} is not set:
+    set {currentKit::%{_u}%} to "Default"
+
+  clear {_p}'s inventory
+
+  loop {kit::%{currentKit::%{_u}%}%::items::*}:
+    give {_p} loop-value
+
+  loop {kit::%{currentKit::%{_u}%}%::armor::*}:
+    if loop-value is any helmet:
+      set helmet slot of {_p} to loop-value
+    if loop-value is any chestplate:
+      set chestplate slot of {_p} to loop-value
+    if loop-value is any leggings:
+      set leggings slot of {_p} to loop-value
+    if loop-value is any boots:
+      set boots slot of {_p} to loop-value
+
+function addKit(name: text, icon: item type, items: items, armor: items):
+
+  add {_name} to {kits::*}
+
+  set {kit::%{_name}%} to {_name}
+  set {kit::%{_name}%::icon} to {_icon}
+  set {kit::%{_name}%::items::*} to {_items::*}
+  set {kit::%{_name}%::armor::*} to {_armor::*}
+
+on item damage:
+  cancel event
+
+on join:
+  set {_u} to player's UUID
+  if {currentKit::%{_u}%} is not set:
+    set {currentKit::%{_u}%} to "Default"
+
+command /kit [<string>]:
+  trigger:
+    kitGUI(player)
+
+on drop:
+  cancel event
+  send "&cSorry, You can't drop items!" to player
+
+on hunger meter change:
+  cancel event
+
+on weather change:
+  cancel event
+
+on death:
+  clear player's inventory
+  set player's max health to 10
+  wait 1 second
+  if {currentKit::%player's uuid%} is "DEATH":
+    set {currentKit::%player's uuid%} to "Default"
+  wait 1 second
+  giveKit(player)
+
+command /debug:
+  trigger:
+    broadcast "%{currentKit::%player's uuid%}%"

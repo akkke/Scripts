@@ -1,0 +1,17 @@
+command /countdown:
+    trigger:
+        if player has permission "sumo.countdown":
+            if {countdown} != true:
+                set {countdown} to true
+                broadcast "&6&l[&c&lSUMO&6&l] &a&l3"
+                wait 1 second
+                broadcast "&6&l[&c&lSUMO&6&l] &a&l2"
+                wait 1 second
+                broadcast "&6&l[&c&lSUMO&6&l] &a&l1"
+                wait 1 second
+                broadcast "&6&l[&c&lSUMO&6&l] &a&lGO"
+                set {countdown} to false
+            else:
+                send "&cThere is already an ongoing countdown!"
+        else:
+            send "&cNo permissions!"

@@ -1,0 +1,3 @@
+command /discord:
+    trigger:
+        send "&eTo join our discord, <link:https://discord.gg/DUubA6qW5f>&6&lCLICK HERE<reset>&e!"
