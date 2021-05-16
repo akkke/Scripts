@@ -9,6 +9,7 @@ command /bc [<text>]:
             send "&cNo permission!"
 
 command /broadcast [<text>]:
+    aliases: /announce
     trigger:
         if executor has permission "core.broadcast":
             if arg-1 is set:
