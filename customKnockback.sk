@@ -4,5 +4,8 @@ on damage:
     event is not cancelled
     delete victim's velocity
     if (y of victim's velocity) < 2:
-        set y of victim's velocity to 0.4
+        if victim is on the ground:
+            set y of victim's velocity to 0.4
+        else:
+            set y of victim's velocity to 0.2
         push victim in attacker's horizontal direction with force 0.5
