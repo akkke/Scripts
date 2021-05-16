@@ -32,6 +32,6 @@ command /report [<player>] [<string>]:
             send "&cIncorrect usage! Correct usage: /report <player> <reason>"
         else:
             send "&7 " to all players where [input has permission "staff.reports"]
-            send "&b&l%player% &7has reported &b%arg 1% &7for reason &b""%arg 2%""&7!" to all players where [input has permission "staff.reports"]
+            send "&l%player% &7has reported &b%arg 1% &7for reason &b""%arg 2%""&7!" to all players where [input has permission "staff.reports"]
             send "&7 " to all players where [input has permission "staff.reports"]
             set {lastReportTime::%player's UUID%} to now
