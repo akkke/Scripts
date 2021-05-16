@@ -1,0 +1,2 @@
+on damage:
+    delete player's velocity
