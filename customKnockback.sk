@@ -8,4 +8,4 @@ on damage:
             set y of victim's velocity to 0.4
         else:
             set y of victim's velocity to 0.25
-        push victim in attacker's horizontal direction with force 0.5
+        push victim in attacker's horizontal direction with force 0.65
