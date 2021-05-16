@@ -168,7 +168,7 @@ on join:
 
 command /kit [<string>]:
   trigger:
-    if "%region at player%" is not "spawn":
+    if "%region at player%" is not "spawn in worldKitPVP and pvparena in world KitPVP":
       send "&cYou must be in spawn to change kits."
       stop
     kitGUI(player)
