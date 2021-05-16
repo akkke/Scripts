@@ -23,9 +23,10 @@ on chat:
     send "&c[Staff Chat] &6%player%&7: %message%" to all players where [input has permission "staff.chat"]
 
 command /report [<player>] [<string>]:
-    cooldown: 5 minutes
     trigger:
-        if arg 1 is not set:
+        if difference between {lastReportTime::%player's UUID%} and now < 5 minutes:
+            send "&cYou are still on a report cooldown, you must wait 5 minutes between reports!"
+        else if arg 1 is not set:
             send "&cIncorrect usage! Correct usage: /report <player> <reason>"
         else if arg 2 is not set:
             send "&cIncorrect usage! Correct usage: /report <player> <reason>"
@@ -33,3 +34,4 @@ command /report [<player>] [<string>]:
             send "&7 " to all players where [input has permission "staff.reports"]
             send "&b&l%player% &7has reported &b%arg 1% &7for reason &b""%arg 2%""&7!" to all players where [input has permission "staff.reports"]
             send "&7 " to all players where [input has permission "staff.reports"]
+            set {lastReportTime::%player's UUID%} to now
