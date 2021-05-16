@@ -1,2 +1,3 @@
 on damage:
+    wait 1 tick
     delete player's velocity
