@@ -4,17 +4,17 @@ on damage:
     event is not cancelled
     delete victim's velocity
     if (y of victim's velocity) < 2:
-        if victim is on the ground:
+        if attacker is on the ground:
             if attacker is sprinting:
                 set y of victim's velocity to 0.4
-                push victim in attacker's horizontal direction with force 0.55
+                push victim in attacker's horizontal direction with force 0.5
             else:
                 set y of victim's velocity to 0.4
-                push victim in attacker's horizontal direction with force 0.45
+                push victim in attacker's horizontal direction with force 0.4
         else:
             if attacker is sprinting:
                 set y of victim's velocity to 0.25
-                push victim in attacker's horizontal direction with force 0.45
+                push victim in attacker's horizontal direction with force 0.55
             else:
                 set y of victim's velocity to 0.25
-                push victim in attacker's horizontal direction with force 0.35
+                push victim in attacker's horizontal direction with force 0.45
