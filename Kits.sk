@@ -1,3 +1,8 @@
+# ---------------------------------------------------------------------------------
+# SKRIPT FROM BAJSPVP PLAYER SERVER PROJECT
+# YOU MAY NOT REMOVE THIS CREDIT IF YOU WISH TO USE THIS SKRIPT EVEN IF YOU EDIT IT
+# ---------------------------------------------------------------------------------
+
 on load:
   clear {kit::*}
   clear {kits::*}
