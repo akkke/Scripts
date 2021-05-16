@@ -1,4 +1,4 @@
 on damage:
     wait 1 tick
     event is not cancelled
-    add 0.4 to y of victim's velocity
+    add 5 to y of victim's velocity
