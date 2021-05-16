@@ -1,3 +1,4 @@
 on damage:
     wait 1 tick
-    add 0.1 to victim's y velocity
+    delete victim's velocity
+    add 0.1 to y of victim's velocity
