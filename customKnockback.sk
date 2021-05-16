@@ -1,4 +1,4 @@
 on damage:
     wait 1 tick
     event is not cancelled
-    set y of victim's velocity to (y of victim's velocity + 0.25)
+    set y of victim's velocity to (y of victim's velocity + 5)
