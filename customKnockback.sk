@@ -9,4 +9,4 @@ on damage:
             push victim in attacker's horizontal direction with force 0.5
         else:
             set y of victim's velocity to 0.3
-            push victim in attacker's horizontal direction with force 0.3
+            push victim in attacker's horizontal direction with force 0.4
