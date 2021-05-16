@@ -20,4 +20,4 @@ on chat:
     {staffchat::%player's UUID%} is true
     player has permission "staff.chat"
     cancel event
-    send "&c[Staff Chat] &6%player%&7: %arg 1%" to all players where [input has permission "staff.chat"]
+    send "&c[Staff Chat] &6%player%&7: %message%" to all players where [input has permission "staff.chat"]
