@@ -5,8 +5,16 @@ on damage:
     delete victim's velocity
     if (y of victim's velocity) < 2:
         if victim is on the ground:
-            set y of victim's velocity to 0.4
-            push victim in attacker's horizontal direction with force 0.65
+            if attacker is sprinting:
+                set y of victim's velocity to 0.4
+                push victim in attacker's horizontal direction with force 0.55
+            else:
+                set y of victim's velocity to 0.4
+                push victim in attacker's horizontal direction with force 0.45
         else:
-            set y of victim's velocity to 0.25
-            push victim in attacker's horizontal direction with force 0.4
+            if attacker is sprinting:
+                set y of victim's velocity to 0.25
+                push victim in attacker's horizontal direction with force 0.45
+            else:
+                set y of victim's velocity to 0.25
+                push victim in attacker's horizontal direction with force 0.35
