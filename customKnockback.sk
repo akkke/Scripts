@@ -6,6 +6,7 @@ on damage:
     if (y of victim's velocity) < 2:
         if victim is on the ground:
             set y of victim's velocity to 0.4
+            push victim in attacker's horizontal direction with force 0.5
         else:
-            set y of victim's velocity to 0.2
-        push victim in attacker's horizontal direction with force 0.5
+            set y of victim's velocity to 0.3
+            push victim in attacker's horizontal direction with force 0.3
