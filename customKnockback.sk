@@ -1,3 +1,4 @@
 on damage:
     wait 1 tick
     delete victim's velocity
+    push victim in direction of attacker with force 1
