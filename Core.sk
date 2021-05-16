@@ -1,3 +1,23 @@
 command /discord:
     trigger:
         send "&eTo join our discord, <link:https://discord.gg/DUubA6qW5f>&6&lCLICK HERE<reset>&e!"
+
+command /stc [<string>]:
+    permission: staff.chat
+    aliases: /tsc
+    trigger:
+        if arg 1 is set:
+            send "&c[Staff Chat] &6%player%&7: %arg 1%" to all players where [input has permission "staff.chat"]
+        else:
+            if {staffchat::%player's UUID%} is not set:
+                set {staffchat::%player's UUID%} to true
+                send "&c[Staff Chat] &7You &aenabled &7staff chat!"
+            else:
+                delete {staffchat::%player's UUID%}
+                send "&c[Staff Chat] &7You &cdisabled &7staff chat!"
+
+on chat:
+    {staffchat::%player's UUID%} is true
+    player has permission "staff.chat"
+    cancel event
+    send "&c[Staff Chat] &6%player%&7: %arg 1%" to all players where [input has permission "staff.chat"]
