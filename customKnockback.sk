@@ -3,9 +3,10 @@ on damage:
     damage cause is attack
     event is not cancelled
     delete victim's velocity
-    push victim in attacker's horizontal direction with force 0.75
+    set {_direction} to attacker's horizontal direction
+    push victim in {_direction} with force 0.75
     push victim up at speed 0.4
     wait 4 ticks
     delete victim's velocity
     push victim up at speed 0.15
-        
+    push victim in {_direction} with force 0.2
