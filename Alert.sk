@@ -1,6 +1,6 @@
 command /bc [<text>]:
     trigger:
-        if player has permission "core.broadcast":
+        if executor has permission "core.broadcast":
             if arg-1 is set:
                 send "&8[&cAlert&8] &f%colored arg-1%" to all players
             else:
@@ -10,7 +10,7 @@ command /bc [<text>]:
 
 command /broadcast [<text>]:
     trigger:
-        if player has permission "core.broadcast":
+        if executor has permission "core.broadcast":
             if arg-1 is set:
                 send "&8[&cAlert&8] &f%colored arg-1%" to all players
             else:

@@ -192,3 +192,7 @@ on death:
 command /debug:
   trigger:
     broadcast "%{currentKit::%player's uuid%}%"
+
+on death:
+  if attacker is a player:
+    heal attacker
