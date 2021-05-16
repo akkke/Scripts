@@ -1,5 +1,6 @@
 on damage:
     wait 1 tick
+    damage cause is attack
     event is not cancelled
     if (y of victim's velocity) < 2:
         set y of victim's velocity to (y of victim's velocity + 0.4)
