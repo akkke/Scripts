@@ -10,6 +10,3 @@
     #delete victim's velocity
     #push victim up at speed 0.15
     #push victim in {_direction} with force 0.2
-
-on script load:
-    send "DEBUG: customKnockback loaded."
