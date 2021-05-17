@@ -7,7 +7,7 @@ command /team [<string>] [<string>]:
     trigger:
         if arg-1 is "create":
             if arg-2 is set:
-                if length of arg-2 is lower than or equal to 15:
+                if length of arg-2 is >= 15:
                     send "correct amount"
                 else:
                     send "too long."
