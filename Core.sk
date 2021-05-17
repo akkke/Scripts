@@ -39,3 +39,7 @@ command /report [<player>] [<string>]:
             send "&l%player% &7has reported &b%arg 1% &7for reason &b""%arg 2%""&7!" to all players where [input has permission "staff.reports"]
             send "&7 " to all players where [input has permission "staff.reports"]
             set {lastReportTime::%player's UUID%} to now
+
+command /rules:
+    trigger:
+        send "&7&m============== &6&lbajs&4&lP&c&lv&4&lP &7&m=============="
