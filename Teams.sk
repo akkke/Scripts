@@ -31,4 +31,4 @@ command /team [<string>] [<string>]:
 # Format tab name.
 on join:
     if {Team::%player's uuid%} is set:
-        set tab name of player to "%player's prefix% %player% &8[&7%{Team::%player's uuid%}%&8]"
+        set player's name in tab to "%player's prefix% %player% &8[&7%uncolored %{Team::%player's uuid%}%%&8]"
