@@ -8,7 +8,7 @@ command /team [<string>] [<string>]:
         if arg-1 is "create":
             if arg-2 is set:
                 if length of "%arg-2%" is less than 16:
-                    if {Teams::*} does not contain "%arg-2%":
+                    if {Teams::*} does not contain arg-2:
                         if {Team::%player's uuid%} is not set:
                             add arg-2 to {Teams::*}
                             set {Teams::%arg-2%::Owner} to player
