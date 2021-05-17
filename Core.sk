@@ -42,4 +42,10 @@ command /report [<player>] [<string>]:
 
 command /rules:
     trigger:
-        send "&7&m============== &6&lbajs&4&lP&c&lv&4&lP &7&m=============="
+        send "&7&m==============&r &6&lbajs&4&lP&c&lv&4&lP &7&m=============="
+        send "&61. &eDo not hack."
+        send "&62. &eNo toxicity."
+        send "&63. &eDo not advertise."
+        send "&64. &eRespect other players and Staff Members."
+        send "&65. &eUse your common sense."
+        send "&7&m==============&r &6&lbajs&4&lP&c&lv&4&lP &7&m=============="
