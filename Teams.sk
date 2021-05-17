@@ -8,8 +8,27 @@ command /team [<string>] [<string>]:
         if arg-1 is "create":
             if arg-2 is set:
                 if length of "%arg-2%" is less than 16:
-                    send "correct amount"
+                    if {Teams::*} does not contain "%arg-2%":
+                        if {Team::%player's uuid%} is not set:
+                            add arg-2 to {Teams::*}
+                            set {Teams::%arg-2%::Owner} to player
+                            set {Team::%player's uuid%} to "%arg-2%"
+                            send "&6Success! &eYour team was successfully created. Type /team or /team help for all the commands!"
+                            send "&eThe team &6%arg-1% &ewas formed by &6%player%&e." to all players where [input has permission "core.alert.teams"]
+                        else:
+                            set {_t} to {Team::%player's uuid%}
+                            if {Teams::%{_t}%::Owner} is player:
+                                send "&eYou are already in a team (&6%{Team::%player's uuid%}%&e). Use &6/team disband &eto disband your team!"
+                            else:
+                                send "&eYou are already in a team (&6%{Team::%player's uuid%}%&e). Use &6/team disband &eto leave &6%{_t}%&e!"
+                    else:
+                        send "&eThis team already exists! Please try a different name!"
                 else:
-                    send "too long."
+                    send "&eThis team name is too long! Please choose a team with 1-15 characters!"
             else:
-                send "no name."
+                send "&ePlease provide a name for your team!"
+
+# Format tab name.
+on join:
+    if {Team::%player's uuid%} is set:
+        set tab name of player to "%player's prefix% %player% &8[&7%uncolored %{Team::%player's uuid%}%%&8]"
