@@ -1,0 +1,9 @@
+on load:
+
+    # Set spawns
+    set {-Sumo::Spawn::Spectators} to location at 0, 0, 0 in world "Sumo"
+    set {-Sumo::Spawn::PlayerOne} to location at 0, 0, 0 in world "Sumo"
+    set {-Sumo::Spawn::PlayerTwo} to location at 0, 0, 0 in world "Sumo"
+
+    # Say script loaded
+    broadcast "&7[&b+&7] &bSumo.sk &7has successfully loaded!"
