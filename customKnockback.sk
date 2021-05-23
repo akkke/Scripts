@@ -9,4 +9,4 @@
     #wait 4 ticks
     #delete victim's velocity
     #push victim up at speed 0.15
-    #push victim in {_direction} with force 0.2
+    #push victim in {_direction} with force 0.4
